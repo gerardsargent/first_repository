@@ -31,6 +31,7 @@ class Card
             self.create_cards
             self.shuffle
             self.deal
+            self.hit_or_stick
         elsif answer == "n"
             puts "No problem! See you soon!"
             die
@@ -78,7 +79,30 @@ class Card
         puts @computer_hand
         self.separator
 
-        self.give_cards_values
+        # self.give_cards_values
+    end
+
+    def hit_or_stick
+        puts "Would you like to hit (h) or stick (s)?"
+        answer = gets.chomp.downcase
+        if answer == "h"
+            player = @full_deck.slice!(0, 1)
+            @player_hand.push(player)
+            self.separator
+            puts "The player now has the following hand: "
+            puts @player_hand
+            self.separator
+            self.hit_or_stick
+        elsif answer == "s"
+            self.separator
+            puts "Your final hand is: "
+            puts @player_hand
+            self.separator
+        else
+            answer != "h" || "s"
+            puts "Don't make me angry. You wouldn't like me when I'm angry. Please choose to either hit (h) or stick (s)."
+            self.hit_or_stick
+        end
     end
 end
 
